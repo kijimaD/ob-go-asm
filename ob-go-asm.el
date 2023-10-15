@@ -37,7 +37,10 @@
   (let* ((tmp-src-file (org-babel-temp-file "go-src-" ".go")))
     (with-temp-file tmp-src-file (insert body))
     (let ((result
-           (shell-command-to-string (format "go build -ldflags=-w -gcflags=all=\"-N -l\" -gcflags=-S %s" tmp-src-file))))
+           (shell-command-to-string (format "go build -gcflags=\"-S -N -l\" %s" tmp-src-file))))
       (with-temp-buffer
         (insert result)
         (buffer-substring (point-min) (point-max))))))
+
+(provide 'ob-go-asm)
+;;; ob-go-asm.el ends here
