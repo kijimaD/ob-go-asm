@@ -34,10 +34,10 @@
 
 ;;;###autoload
 (defun org-babel-execute:go-asm (body params)
-  (let* ((tmp-src-file (org-babel-temp-file "go-src-" ".go")))
+  (let* ((tmp-src-file (org-babel-temp-file "" ".go")))
     (with-temp-file tmp-src-file (insert body))
     (let ((result
-           (shell-command-to-string (format "go build -gcflags=\"-S -N -l\" %s" tmp-src-file))))
+           (shell-command-to-string (format "go build -gcflags=\"-S -N -l\" -o /dev/null %s" tmp-src-file))))
       (with-temp-buffer
         (insert result)
         (buffer-substring (point-min) (point-max))))))
